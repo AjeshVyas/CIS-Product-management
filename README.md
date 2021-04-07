@@ -13,3 +13,14 @@ Things user can do :
 6 - View Products
 7 - View Categories
 8 - Update, edit and Delete Categories as well as Products.
+
+Step to setup :
+
+1 - Pull repository using pul request or download it somewhere
+2 - Open cmd in the product_management directory
+3 - Run command : pip install -r requirements.txt
+4 - Run command : python manage.py runserver
+
+Pre-requisites for setup :
+1 - Python
+2 - Virtual Env (optional)
