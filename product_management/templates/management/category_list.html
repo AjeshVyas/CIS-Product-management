@@ -1,0 +1,36 @@
+{% extends  'management/base.html' %}
+
+	{% block titleblock %}My Categories{% endblock %}
+
+	{% block classmc %}active{% endblock %}
+
+	{% block baseblock %}
+
+	{% load static %}
+
+    {% if request.user.is_authenticated %}
+    <div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-lg-8">
+				<h1 style="margin-top: 5%;margin-bottom: 5%" class="mainheading">My Categories</h1>
+			</div>
+            <div class="col-lg-8">
+                <ul>
+                    {% for category in category_list %}
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <li style="text-align: left;">{{category.name}}</li>
+                            <div style="display: flex; justify-content: space-between;">
+                                <a href="/management/update-category/{{category.id}}/" style="margin-right: 16px;">Edit</a>
+                                <a href="/management/delete-category/{{category.id}}/" style="margin-right: 16px;">Delete</a>
+                            </div>   
+                        </div>
+                    {% empty %}
+                        <li style="text-align: left;">No category found. Please add first.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+		</div>
+	</div>
+
+    {% endif %}
+{% endblock %}

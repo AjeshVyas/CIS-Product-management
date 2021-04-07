@@ -1,0 +1,4 @@
+django==2.2.19
+django-crispy-forms
+django-filter
+pillow

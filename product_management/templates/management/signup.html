@@ -1,0 +1,64 @@
+{% extends  'management/base.html' %}
+
+  {% block titleblock %}Register{% endblock %}
+
+  {% block classr %}active{% endblock %}
+
+  {% block baseblock %}
+
+    {% load crispy_forms_tags %}
+    {% load static %}
+
+    <div class="container text-center">
+      <h1 style="margin-top: 2.5%;margin-bottom: 5%" class="mainheading">New User Signup</h1> <hr/>
+      {% if msg%}
+      <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{msg}}</strong>
+      </div>
+      {%endif%}
+
+
+      <div id="result"></div>
+
+
+
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <form method="post" >
+            {{signupform | crispy}}
+            {%csrf_token%}
+            <input type="submit" name="" value="Save" id="button" class="btn btn-success" />
+          </form>
+        </div>
+      </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $("#id_username").keyup(function(){
+          var name=$("#id_username").val();
+          $.ajax({
+
+            url:'/checkuser',
+            data:{'username':name},
+            type:'get',
+            dataType:'json',
+            
+            success:function(response){
+              if(response.is_exist){
+                var mes = '<i id="result" style="color: red;">UserName not available</i>'
+                $("#id_username").after(mes);
+                $("#button").prop('disabled', true);
+              }
+              
+              else {
+                $("#button").prop('disabled', false);
+              }
+            }
+          })//ajax end
+        })
+      })
+    </script>
+  {%endblock%}
